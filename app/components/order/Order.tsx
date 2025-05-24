@@ -1,12 +1,16 @@
 "use client";
 
+import { AppDispatch, RootState } from "@/redux/store";
+import { fetchClubListAsync } from "@redux/slices/clubSlice";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const Order: React.FC = () => {
 
-    // const clubs = [];
-    
+    const dispatch = useDispatch<AppDispatch>();
+    const { clubs, isLoading, error  } = useSelector((state: RootState) => state.club);
+
     const [formData, setFormData] = useState({
         date: '',
         name: '',
@@ -33,6 +37,13 @@ const Order: React.FC = () => {
         });
     };
 
+    useEffect(() => {
+        dispatch(fetchClubListAsync());
+    }, [dispatch]);
+    
+    if (isLoading) return <div className="text-center text-white">Loading clubs...</div>;
+    if (error) return <div className="text-center text-red-500">Error loading clubs: {error}</div>;
+
     return (
         <div className="min-h-screen bg-[url('/images/bg-texture.png')] bg-cover p-4 flex justify-center items-center">
             <div className="bg-white/10 backdrop-blur-sm rounded-xl shadow-2xl border border-white/10 p-6 md:p-10 w-full max-w-6xl grid md:grid-cols-2 gap-6">
@@ -42,39 +53,43 @@ const Order: React.FC = () => {
                         <p className="text-sm text-center font-bold mb-2 text-black">Merchandise Produk Pengda HTCI DKI Jakarta</p>
                     </div>    
 
-                    <div className="space-y-4">
-                        <div>
+                    <div >
+                        <div className="my-4">
                             <label htmlFor="date" className="text-black font-bold">Date</label>
                             <input id="date" type="date" name="date" value={formData.date} onChange={handleChange} className="w-full text-black text-black border my-2 p-2 rounded" placeholder="Date" />
                         </div>
 
-                        <div className="flex gap-2">
-                            <input type="text" name="name" onChange={handleChange} placeholder="Nama Sesuai ID" className="w-1/2 text-black border p-2 rounded" />
-                            <select
-                                name="club"
-                                value={formData.club}
-                                onChange={handleChange}
-                                className="w-1/2 bg-white p-2 appearance-none rounded text-black"
+                        <div className="my-4">
+                            <label className="text-black font-bold">Your Name & Club</label>
+                            <div className="flex gap-2 mt-2">
+                                <input type="text" name="name" onChange={handleChange} placeholder="Nama Sesuai ID" className="w-1/3 text-black border p-2 rounded" />
+                                <select
+                                    name="club"
+                                    value={formData.club}
+                                    onChange={handleChange}
+                                    className="w-80 bg-white p-2 appearance-none rounded text-black"
                                 >
-                                <option value="">Pilih Club</option>
-                                {/* {clubs.map((club) => (
-                                    <option key={club.id} value={club.id}>
-                                    {club.name}
-                                    </option>
-                                ))} */}
-                            </select>
+                                    <option value="">Pilih Club</option>
+                                    {clubs.map((club) => (
+                                        <option key={club.no} value={club.club}>
+                                            {club.club}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
                         </div>
-                        <div>
+                                    
+                        <div className="my-4">
                             <label htmlFor="email" className="text-black font-bold">Alamat Email</label>
                             <input id="email" type="email" name="email" onChange={handleChange} placeholder="ex: myname@gmail.com" className="w-full text-black border my-2 p-2 rounded" />
                         </div>
 
-                        <div>
+                        <div className="my-4">
                             <label htmlFor="address" className="text-black font-bold">Phone Number</label>
                             <input id="phone" type="tel" name="phone" onChange={handleChange} placeholder="+62" className="w-full text-black my-2 border p-2 rounded" />
                         </div>
 
-                        <div>
+                        <div className="my-4">
                             <label htmlFor="address" className="text-black font-bold">Detail Alamat Pengiriman</label>
                             <textarea id="address" name="address" onChange={handleChange} className="w-full text-black h-24 border my-2 p-2 rounded resize-none" />
                         </div>

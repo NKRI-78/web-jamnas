@@ -5,13 +5,8 @@ import "reactjs-tiptap-editor/style.css";
 
 import {  store } from "@redux/store";
 import { Provider } from "react-redux";
-import { usePathname } from "next/navigation";
 
 import localFont from "next/font/local";
-
-import LeftSidebar from "@components/sidebar/LeftSidebar";
-import Header from "@components/header/Header";
-import ModalLogout from "@components/modal/logout/Logout";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,9 +25,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-   
-  const pathname = usePathname();
-
   return (
     <Provider store={store}>
         <html lang="en">

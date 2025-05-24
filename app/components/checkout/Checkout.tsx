@@ -50,7 +50,6 @@ const Checkout: React.FC = () => {
                 </div>
             </div>
 
-            {/* Payment */} 
             <div className="bg-white/10 backdrop-blur-sm p-6 rounded shadow-lg">
                 <h2 className="text-3xl font-bold mb-4">Payment</h2>
 
