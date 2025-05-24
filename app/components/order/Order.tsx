@@ -1,14 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import React, { useState } from "react";
 
 const Order: React.FC = () => {
 
-    const clubs = [
-        { id: "1", name: "data 1" },
-        { id: "2", name: "data 2" },
-        { id: "3", name: "data 3" },
-    ];
+    // const clubs = [];
     
     const [formData, setFormData] = useState({
         date: '',
@@ -48,45 +45,44 @@ const Order: React.FC = () => {
                     <div className="space-y-4">
                         <div>
                             <label htmlFor="date" className="text-black font-bold">Date</label>
-                            <input id="date" type="date" name="date" value={formData.date} onChange={handleChange} className="w-full text-black border my-2 p-2 rounded" placeholder="Date" />
+                            <input id="date" type="date" name="date" value={formData.date} onChange={handleChange} className="w-full text-black text-black border my-2 p-2 rounded" placeholder="Date" />
                         </div>
 
                         <div className="flex gap-2">
-                            <input type="text" name="name" onChange={handleChange} placeholder="Nama Sesuai ID" className="w-1/2 border p-2 rounded" />
+                            <input type="text" name="name" onChange={handleChange} placeholder="Nama Sesuai ID" className="w-1/2 text-black border p-2 rounded" />
                             <select
                                 name="club"
                                 value={formData.club}
                                 onChange={handleChange}
-                                className="w-1/2 bg-white p-2 rounded text-black"
+                                className="w-1/2 bg-white p-2 appearance-none rounded text-black"
                                 >
                                 <option value="">Pilih Club</option>
-                                {clubs.map((club) => (
+                                {/* {clubs.map((club) => (
                                     <option key={club.id} value={club.id}>
                                     {club.name}
                                     </option>
-                                ))}
+                                ))} */}
                             </select>
                         </div>
-
                         <div>
                             <label htmlFor="email" className="text-black font-bold">Alamat Email</label>
-                            <input id="email" type="email" name="email" onChange={handleChange} placeholder="ex: myname@gmail.com" className="w-full border my-2 p-2 rounded" />
+                            <input id="email" type="email" name="email" onChange={handleChange} placeholder="ex: myname@gmail.com" className="w-full text-black border my-2 p-2 rounded" />
                         </div>
 
                         <div>
                             <label htmlFor="address" className="text-black font-bold">Phone Number</label>
-                            <input id="phone" type="tel" name="phone" onChange={handleChange} placeholder="+62" className="w-full my-2 border p-2 rounded" />
+                            <input id="phone" type="tel" name="phone" onChange={handleChange} placeholder="+62" className="w-full text-black my-2 border p-2 rounded" />
                         </div>
 
                         <div>
                             <label htmlFor="address" className="text-black font-bold">Detail Alamat Pengiriman</label>
-                            <textarea id="address" name="address" onChange={handleChange} className="w-full h-24 border my-2 p-2 rounded resize-none" />
+                            <textarea id="address" name="address" onChange={handleChange} className="w-full text-black h-24 border my-2 p-2 rounded resize-none" />
                         </div>
 
                         <p className="text-xs text-[#888]">
-                        Isi alamat dengan lengkap jika produk ingin dikirim. <br />
-                        Estimasi pengiriman 7 hari setelah PO ditutup. <br />
-                        Order bisa dilakukan dengan pengambilan langsung COD / J&T jika biaya ditanggung pembeli.
+                            Isi alamat dengan lengkap jika produk ingin dikirim. <br />
+                            Estimasi pengiriman 7 hari setelah PO ditutup. <br />
+                            Order bisa dilakukan dengan pengambilan langsung COD / J&T jika biaya ditanggung pembeli.
                         </p>
                     </div>
                 </div>
@@ -101,24 +97,25 @@ const Order: React.FC = () => {
 
                     <div className="grid grid-cols-2 gap-3 my-4">
                         {Object.entries(formData.sizes).map(([size, val]) => (
-                        <div key={size} className="flex items-center justify-between p-2 rounded">
-                            <label htmlFor={size} className="font-semibold text-black w-10">{size}</label>
-                            <input
-                                type="number"
-                                min="0"
-                                name={size}
-                                id={size}
-                                value={val}
-                                onChange={(e) => handleSizeChange(size, parseInt(e.target.value))}
-                                className="w-16 text-black p-1 rounded text-center"
-                            />
-                        </div>
+                            <div key={size} className="flex items-center justify-between p-2 rounded">
+                                <label htmlFor={size} className="font-semibold text-black w-10">{size}</label>
+                                <input
+                                    type="number"
+                                    min="0"
+                                    name={size}
+                                    id={size}
+                                    value={val}
+                                    onChange={(e) => handleSizeChange(size, parseInt(e.target.value))}
+                                    className="w-16 text-black p-1 rounded text-center"
+                                />
+                            </div>
                         ))}
                     </div>
-
-                    <button className="w-full bg-green-600 text-white py-3 font-bold rounded shadow hover:bg-green-700 transition">
-                        BUY NOW!
-                    </button>
+                    <Link href="/checkout">
+                        <button className="w-full bg-green-600 text-white py-3 font-bold rounded shadow hover:bg-green-700 transition">
+                            BUY NOW!
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>
