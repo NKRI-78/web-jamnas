@@ -1,9 +1,9 @@
-import AllTransactionPage from "@app/all-transaction/page";
+import Home from "./components/home/Home";
 
-const Home: React.FC = () => {
+const HomePage: React.FC = () => {
     return (
-        <AllTransactionPage />
+        <Home />
     );
 };
 
-export default Home;
+export default HomePage;
