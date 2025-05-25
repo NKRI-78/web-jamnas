@@ -48,12 +48,11 @@ const Checkout: React.FC = () => {
                         <div className="col-span-2 mt-4">
                             <p>Size Order</p>
                             <ul className="list-none">
-                                 {order?.sizes &&
-                Object.entries(order.sizes)
-                    .filter(([_, qty]) => qty > 0)
-                    .map(([size, qty]) => (
-                        <li key={size} className="font-bold">{`${size} - ${qty}`}</li>
-                    ))}
+                                {order?.sizes &&
+                                    Object.entries(order.sizes).filter(([_, qty]) => qty > 0).map(([size, qty]) => (
+                                        <li key={size} className="font-bold">{`${size} - ${qty}`}</li>
+                                    ))
+                                }
                             </ul>
                         </div>
                 </div>
