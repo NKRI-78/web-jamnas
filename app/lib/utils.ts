@@ -2,6 +2,8 @@ import Cookies from "js-cookie";
 import DOMPurify from "dompurify";
 
 import moment from "moment"
+import { format } from "date-fns";
+import { id } from "date-fns/locale";
 
 export const getUserId = (): string | undefined => {
     return Cookies.get("user_id");
@@ -21,6 +23,12 @@ export const handleDescriptionTruncate = (description: string, maxLength: number
 
 export const sanitizeHtml = (html: string): string => {
     return DOMPurify.sanitize(html);
+};
+
+export const formatDateIndo = (dateStr: string) => {
+    const date = new Date(dateStr);
+    if (isNaN(date.getTime())) return "";
+    return format(date, "dd-MMMM-yyyy", { locale: id }).toUpperCase();
 };
 
 export const formatRupiah = (amount: number | string) => {

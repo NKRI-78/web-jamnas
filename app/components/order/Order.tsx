@@ -5,18 +5,10 @@ import { fetchClubListAsync } from "@redux/slices/clubSlice";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { format } from "date-fns";
-import { id } from "date-fns/locale";
-
 import { saveOrder } from "@/redux/slices/orderSlice";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
-
-const formatDateIndo = (dateStr: string) => {
-    const date = new Date(dateStr);
-    if (isNaN(date.getTime())) return "";
-    return format(date, "dd-MMMM-yyyy", { locale: id }).toUpperCase();
-};
+import { formatDateIndo } from "@lib/utils";
 
 const CustomDateInput = ({ value, onChange }: { value: string, onChange: (val: string) => void }) => {
     const [displayValue, setDisplayValue] = useState("");

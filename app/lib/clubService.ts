@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 
 export const fetchClubList = async () => {
   try {
-    const response = await axios.get('http://localhost:3222/api/v1/club/list');
+    const response = await axios.get('http://localhost:3131/api/v1/club/list');
     const data = response.data.data;
     return data;
   } catch (e: any) {

@@ -1,6 +1,15 @@
+"use client";
+
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+
 import React from "react";
+import { formatDateIndo } from "@/app/lib/utils";
 
 const Checkout: React.FC = () => {
+
+    const order = useSelector((state: RootState) => state.order.data);
+
     return (
         <div className="min-h-screen bg-[url('/images/bg-texture.png')] bg-cover bg-center p-8 text-black font-sans">
         
@@ -14,37 +23,37 @@ const Checkout: React.FC = () => {
                     <div className="grid grid-cols-2 gap-2 text-sm">
                         <div>
                             <p>Date</p>
-                            <p className="font-bold text-1xl">21 - JUNI - 2025</p> 
+                            <p className="font-bold text-1xl">{formatDateIndo(order?.date ?? "")}</p> 
                         </div>
                         <div>
                             <p>Alamat Email</p>
-                            <p className="font-bold text-1xl">caesario.steveboy@gmail.com</p> 
+                            <p className="font-bold text-1xl">{order?.email}</p> 
                         </div>
                         <div>
                             <p>Nama</p>
-                            <p className="font-bold text-1xl">Caesario Steve</p> 
+                            <p className="font-bold text-1xl">{order?.name}</p> 
                         </div>
                         <div>
                             <p>Club</p>
-                            <p className="font-bold text-1xl">CHTC</p> 
+                            <p className="font-bold text-1xl">{order?.club}</p> 
                         </div>
                         <div>
                             <p>Phone Number</p>
-                            <p className="font-bold text-1xl">+62 8123456789</p> 
+                            <p className="font-bold text-1xl">{order?.phone}</p> 
                         </div>
                         <div>
                             <p>Detail Address</p>
-                            <p className="font-bold text-1xl">Sekretariat HTCI Pengda DKI
-                                Jl. Kemang Raya No.9A,
-                                Kemang Jakarta Selatan
-                            </p> 
+                            <p className="font-bold text-1xl">{order?.address}</p> 
                         </div>
                         <div className="col-span-2 mt-4">
                             <p>Size Order</p>
                             <ul className="list-none">
-                                <li className="font-bold">M - 12</li>
-                                <li className="font-bold">L - 6</li>
-                                <li className="font-bold">XL - 5</li>
+                                 {order?.sizes &&
+                Object.entries(order.sizes)
+                    .filter(([_, qty]) => qty > 0)
+                    .map(([size, qty]) => (
+                        <li key={size} className="font-bold">{`${size} - ${qty}`}</li>
+                    ))}
                             </ul>
                         </div>
                 </div>
