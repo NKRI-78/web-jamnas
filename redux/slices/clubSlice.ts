@@ -37,7 +37,6 @@ const clubSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchClubListAsync.fulfilled, (state, action) => {
-      console.log(action.payload);
       state.clubs = action.payload;
     });
   },
