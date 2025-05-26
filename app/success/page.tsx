@@ -4,8 +4,8 @@ import type { Metadata } from "next";
 import Success from "@app/components/success/Success";
 
 export const metadata: Metadata = {
-  title: "Admin | All Transaction",
-  description: "All Transaction",
+  title: "Jamnas HTCI 2025 | Success",
+  description: "Success",
 };
 
 const SuccessPage: React.FC = () => {

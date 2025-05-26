@@ -5,8 +5,8 @@ import type { Metadata } from "next";
 import Checkout from "@components/checkout/Checkout";
 
 export const metadata: Metadata = {
-  title: "Admin | All Transaction",
-  description: "All Transaction",
+  title: "Jamnas HTCI 2025 | Checkout",
+  description: "Checkout",
 };
 
 const CheckoutPage: React.FC = () => {

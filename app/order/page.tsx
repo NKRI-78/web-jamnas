@@ -4,8 +4,8 @@ import type { Metadata } from "next";
 import Order from "@app/components/order/Order";
 
 export const metadata: Metadata = {
-  title: "Admin | All Transaction",
-  description: "All Transaction",
+  title: "Jamnas HTCI 2025 | Order",
+  description: "Order",
 };
 
 const OrderPage: React.FC = () => {
