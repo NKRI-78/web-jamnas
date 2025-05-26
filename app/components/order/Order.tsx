@@ -113,6 +113,7 @@ const Order: React.FC = () => {
                 dateFormat="dd-MMMM-yyyy"
                 locale={id}
                 className="w-full text-black border p-2 rounded bg-white"
+                minDate={new Date()}
               />
             </div>
 
