@@ -9,12 +9,12 @@ const Home: React.FC = () => {
       <div className="flex flex-col md:flex-row gap-4 w-full max-w-6xl">
 
         <div className="flex-1 relative text-center block md:hidden">
-          <img src="/images/jambore-logo.png" alt="Jambore Nasional 2025" className="mx-auto w-[380px] mb-4" />
+          <img src="/images/jambore-logo.png" alt="Jambore Nasional 2025" className="mx-auto mb-4" />
           <div className="flex justify-center gap-4">
-            <img src="/images/motorbike.png" alt="Motorbike Prize" className="absolute left-[45px] bottom-[50px] w-36" />
-            <img src="/images/car.png" alt="Car Prize" className="absolute right-[45px] bottom-[50px] w-36" />
+            <img src="/images/motorbike.png" alt="Motorbike Prize" className="absolute left-[45px] bottom-[10px] w-36" />
+            <img src="/images/car.png" alt="Car Prize" className="absolute right-[45px] bottom-[10px] w-36" />
           </div>
-          <button className="mt-[80px] bg-red-600 text-white px-6 py-2 rounded font-bold">
+          <button className="absolute left-[35px] right-[35px] bottom-[-10px] bg-red-600 text-white px-6 py-2 rounded font-bold">
             OUR DOOR PRIZE
           </button>
         </div>
