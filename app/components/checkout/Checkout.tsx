@@ -1,14 +1,54 @@
 "use client";
 
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import { AppDispatch, RootState } from "@redux/store";
+import { useDispatch, useSelector } from "react-redux";
 
-import React from "react";
-import { formatDateIndo } from "@/app/lib/utils";
+import React, { useEffect } from "react";
+import { formatDateIndo } from "@lib/utils";
+import { fetchPaymentListAsync, setSelectedPayment, StorePaymentAsync } from "@redux/slices/paymentSlice";
+import { storePayment } from "@/app/lib/paymentService";
 
 const Checkout: React.FC = () => {
+    const dispatch = useDispatch<AppDispatch>();
 
+    const { payments, selectedPayment, paymentCode, isLoading, error } = useSelector((state: RootState) => state.payment);
+    
     const order = useSelector((state: RootState) => state.order.data);
+
+    const submit = () => {
+        
+        const sizes = order?.sizes ?? {};
+
+        const payload: PaymentStore = {
+            channel_id: selectedPayment,
+            payment_code: paymentCode,
+            club: order?.club ?? "",
+            name: order?.name ?? "",
+            email: order?.email ?? "",
+            date: order?.dateOrigin ?? "",
+            phone: order?.phone ?? "",
+            detail_address: order?.detailAddress ?? "",
+            size_s: sizes["S"] ?? 0,
+            size_m: sizes["M"] ?? 0,
+            size_l: sizes["L"] ?? 0,
+            size_xl: sizes["XL"] ?? 0,
+            size_2xl: sizes["2XL"] ?? 0,
+            size_3xl: sizes["3XL"] ?? 0,
+            size_4xl: sizes["4XL"] ?? 0,
+            size_5xl: sizes["5XL"] ?? 0,
+            size_6xl: sizes["6XL"] ?? 0,
+            size_7xl: sizes["7XL"] ?? 0,
+        };
+
+        dispatch(StorePaymentAsync({payload: payload}));
+    }
+
+    useEffect(() => {
+        dispatch(fetchPaymentListAsync());
+    }, [dispatch]);
+
+    if (isLoading) return <div className="text-center text-white">Loading payments...</div>;
+    if (error) return <div className="text-center text-red-500">Error loading payments: {error}</div>;
 
     return (
         <div className="min-h-screen bg-[url('/images/bg-texture.png')] bg-cover bg-center p-8 text-black font-sans">
@@ -43,7 +83,7 @@ const Checkout: React.FC = () => {
                         </div>
                         <div>
                             <p>Detail Address</p>
-                            <p className="font-bold text-1xl">{order?.address}</p> 
+                            <p className="font-bold text-1xl">{order?.detailAddress}</p> 
                         </div>
                         <div className="col-span-2 mt-4">
                             <p>Size Order</p>
@@ -63,30 +103,43 @@ const Checkout: React.FC = () => {
 
                 <div className="bg-white border border-gray-300 rounded p-4 mb-4">
                     <div className="text-center">
-                    <p className="text-lg font-semibold">Total</p>
-                    <p className="text-2xl font-bold text-green-700">Rp902.000</p>
-                    <p className="text-xs text-gray-500 mt-1">Order ID #5eb55e88...</p>
-                    <p className="text-xs text-red-500 mt-1">Choose within <span className="font-semibold">00:19:26</span></p>
+                        <p className="text-lg font-semibold">Total</p>
+                        <p className="text-2xl font-bold text-green-700">Rp 155.000</p>
                     </div>
                 </div>
 
-                <div className="border-t pt-4">
+               <div className="border-t pt-4">
                     <p className="text-sm font-semibold mb-2">Select Payment Method</p>
-                    <div className="grid grid-cols-3 gap-2">
-                    <img src="/gopay.png" alt="GoPay" className="h-6" />
-                    <img src="/gopaylater.png" alt="GoPay Later" className="h-6" />
-                    <img src="/qris.png" alt="QRIS" className="h-6" />
-                    <img src="/mandiri.png" alt="Mandiri" className="h-6" />
-                    <img src="/bni.png" alt="BNI" className="h-6" />
-                    <img src="/bri.png" alt="BRI" className="h-6" />
-                    <img src="/permata.png" alt="Permata" className="h-6" />
-                    <img src="/linkaja.png" alt="LinkAja" className="h-6" />
-                    <img src="/ovo.png" alt="OVO" className="h-6" />
-                    <img src="/dana.png" alt="Dana" className="h-6" />
-                    </div>
-                </div>
+                    {Array.isArray(payments) && payments.length > 0 ? (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {payments.map((payment) => {
+                            const isSelected = selectedPayment === payment.id;
 
-                <button className="w-full mt-6 bg-green-600 hover:bg-green-700 text-white py-3 rounded font-bold text-lg">
+                            return (
+                                <div
+                                    key={payment.id}
+                                    role="button"
+                                    aria-selected={isSelected}
+                                    onClick={() => dispatch(setSelectedPayment(payment))}
+                                    className={`flex items-center gap-3 p-4 rounded-lg border cursor-pointer transition
+                                        ${  
+                                            isSelected 
+                                            ? 'border-green-600 bg-green-50 ring-2 ring-green-400' 
+                                            : 'border-gray-300 bg-white hover:bg-gray-50'
+                                        }
+                                    `}
+                                >
+                                    <img src={payment.logo} alt={payment.name} className="h-6 w-auto object-contain" />
+                                    <span className="font-medium text-sm">{payment.name}</span>
+                                </div>
+                            );
+                        })}
+                        </div>
+                    ) : (
+                        <p className="text-sm text-gray-500 col-span-3">No payment methods available.</p>
+                    )}
+                </div>
+                <button onClick={submit} className="w-full mt-6 bg-green-600 hover:bg-green-700 text-white py-3 rounded font-bold text-lg">
                     PAY NOW!
                 </button>
                 </div>

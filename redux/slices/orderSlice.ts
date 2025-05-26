@@ -6,11 +6,12 @@ interface Sizes {
 
 interface OrderFormData {
   date: string;
+  dateOrigin: string;
   name: string;
   club: string;
   email: string;
   phone: string;
-  address: string;
+  detailAddress: string;
   sizes: Sizes;
 }
 

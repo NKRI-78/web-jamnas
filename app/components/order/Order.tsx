@@ -23,7 +23,7 @@ const CustomDateInput = ({ value, onChange }: { value: string, onChange: (val: s
                 type="date"
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                className="absolute inset-0 opacity-0 bg-red cursor-pointer z-10"
+                className="absolute inset-0 opacity-0 cursor-pointer z-10"
             />
             <input
                 type="text"
@@ -48,10 +48,11 @@ const Order: React.FC = () => {
         club: '',
         email: '',
         phone: '',
-        address: '',
+        detailAddress: '',
         sizes: {
             S: 0, M: 0, L: 0, XL: 0, '2XL': 0, '3XL': 0, '4XL': 0, '5XL': 0, '6XL': 0, '7XL': 0,
         },
+        dateOrigin: '',
     });
 
     const handleChange = (
@@ -70,9 +71,9 @@ const Order: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        const { date, name, club, email, phone, address, sizes } = formData;
+        const { date, name, club, email, phone, detailAddress, sizes } = formData;
 
-        if (!date || !name || !club || !email || !phone || !address) {
+        if (!date || !name || !club || !email || !phone || !detailAddress) {
             Swal.fire({
                 icon: "info",
                 title: "Info",
@@ -122,7 +123,13 @@ const Order: React.FC = () => {
                                 <label htmlFor="date" className="text-black font-bold">Date</label>
                                 <CustomDateInput
                                     value={formData.date}
-                                    onChange={(val) => setFormData((prev) => ({ ...prev, date: val }))}
+                                    onChange={(val) => {
+                                        setFormData((prev) => ({
+                                            ...prev,
+                                            date: val,
+                                            dateOrigin: val,
+                                        }));
+                                    }}
                                 />
                             </div>
 
@@ -164,7 +171,7 @@ const Order: React.FC = () => {
 
                             <div className="my-4">
                                 <label htmlFor="address" className="text-black font-bold">Detail Alamat Pengiriman</label>
-                                <textarea id="address" name="address" onChange={handleChange} className="w-full text-black h-24 border my-2 p-2 rounded resize-none" />
+                                <textarea id="address" name="detailAddress" onChange={handleChange} className="w-full text-black h-24 border my-2 p-2 rounded resize-none" />
                             </div>
 
                             <p className="text-xs text-[#888]">
