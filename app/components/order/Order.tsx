@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Select from "react-select";
 import { AppDispatch, RootState } from "@/redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchClubListAsync } from "@redux/slices/clubSlice";
@@ -11,6 +12,34 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { id } from "date-fns/locale";
 import moment from "moment";
+
+const customStyles = {
+  control: (provided: any, state: any) => ({
+    ...provided,
+    minHeight: '2.8rem',  
+    height: '2.8rem',
+    boxShadow: state.isFocused ? '0 0 0 1px #3b82f6' : 'none', 
+    borderColor: state.isFocused ? '#3b82f6' : provided.borderColor,
+    '&:hover': {
+      borderColor: '#3b82f6',
+    },
+  }),
+  valueContainer: (provided: any) => ({
+    ...provided,
+    paddingTop: 0,
+    paddingBottom: 0,
+  }),
+  indicatorsContainer: (provided: any) => ({
+    ...provided,
+    height: '2.5rem',
+  }),
+  input: (provided: any) => ({
+    ...provided,
+    margin: 0,
+    padding: 0,
+  }),
+};
+
 
 const Order: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -30,17 +59,30 @@ const Order: React.FC = () => {
     dateOrigin: "",
   });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  const handleChange = (eventOrValue: React.ChangeEvent<any> | { name: string; value: string }) => {
+    if ('target' in eventOrValue) {
+      const { name, value } = eventOrValue.target;
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    } else {
+      const { name, value } = eventOrValue;
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSizeChange = (size: string, value: number) => {
     setFormData((prev) => ({
       ...prev,
       sizes: { ...prev.sizes, [size]: value },
+    }));
+  };
+
+  const handleDateChange = (date: Date | null) => {
+    if (!date) return;
+    const isoDate = moment(date).format("YYYY-MM-DD");
+    setFormData((prev) => ({
+      ...prev,
+      date: isoDate,
+      dateOrigin: isoDate,
     }));
   };
 
@@ -75,15 +117,10 @@ const Order: React.FC = () => {
     router.push("/checkout");
   };
 
-  const handleDateChange = (date: Date | null) => {
-    if (!date) return;
-    const isoDate = moment(date).format("YYYY-MM-DD");
-    setFormData((prev) => ({
-      ...prev,
-      date: isoDate,
-      dateOrigin: isoDate,
-    }));
-  };
+  const clubOptions = clubs.map((club) => ({
+    value: club.club,
+    label: club.club,
+  }));
 
   useEffect(() => {
     dispatch(fetchClubListAsync());
@@ -127,7 +164,23 @@ const Order: React.FC = () => {
                   placeholder="Nama Sesuai ID"
                   className="w-full sm:w-1/3 text-black border p-2 rounded"
                 />
-                <select
+                <Select
+                  name="club"
+                  options={clubOptions}
+                  value={clubOptions.find(option => option.value === formData.club)}
+                  onChange={(selectedOption) =>
+                    handleChange({
+                      name: "club",
+                      value: selectedOption?.value || "",
+                    })
+                  }
+                  styles={customStyles}
+                  isLoading={isLoading}
+                  placeholder="Pilih Club"
+                  className="w-full text-black sm:w-2/3"
+                  classNamePrefix="react-select"
+                />
+                {/* <select
                   name="club"
                   value={formData.club}
                   onChange={handleChange}
@@ -147,7 +200,7 @@ const Order: React.FC = () => {
                       {isLoading ? "Loading clubs..." : "No clubs available"}
                     </option>
                   )}
-                </select>
+                </select> */}
               </div>
             </div>
 
