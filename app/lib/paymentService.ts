@@ -7,13 +7,7 @@ export const fetchPaymentList = async () => {
     const data = response.data.data;
     return data;
   } catch (e: any) {
-    Swal.fire({
-      icon: "info",
-      title: "Info",
-      text: e?.response?.data?.message || e.message,
-      timer: 2000,
-      showConfirmButton: false,
-    });
+    console.log(`Payment List ${e?.response?.data?.message || e.message}`)
   }
 };
 
@@ -21,6 +15,7 @@ export const storePayment = async (payload: PaymentStore) => {
   try {
     const response = await axios.post('http://localhost:3131/api/v1/payment/store', payload);
     const data = response.data.data
+    return data;
   } catch (e: any) {
     Swal.fire({
       icon: "info",

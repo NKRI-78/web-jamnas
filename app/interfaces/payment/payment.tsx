@@ -27,3 +27,10 @@ interface PaymentStore {
   size_6xl: number;
   size_7xl: number;
 }
+
+interface PaymentResponse {
+  order_id: string;
+  payment_access: string;
+  payment_type: string;
+  payment_expire: string;
+}

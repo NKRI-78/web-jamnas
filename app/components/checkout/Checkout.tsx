@@ -3,19 +3,23 @@
 import { AppDispatch, RootState } from "@redux/store";
 import { useDispatch, useSelector } from "react-redux";
 
+import Cookies from "js-cookie";
+
 import React, { useEffect } from "react";
 import { formatDateIndo } from "@lib/utils";
 import { fetchPaymentListAsync, setSelectedPayment, StorePaymentAsync } from "@redux/slices/paymentSlice";
-import { storePayment } from "@/app/lib/paymentService";
+import { useRouter } from "next/navigation";
 
 const Checkout: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
+
+    const router = useRouter();
 
     const { payments, selectedPayment, paymentCode, isLoading, error } = useSelector((state: RootState) => state.payment);
     
     const order = useSelector((state: RootState) => state.order.data);
 
-    const submit = () => {
+    const submit = async () => {
         
         const sizes = order?.sizes ?? {};
 
@@ -40,7 +44,30 @@ const Checkout: React.FC = () => {
             size_7xl: sizes["7XL"] ?? 0,
         };
 
-        dispatch(StorePaymentAsync({payload: payload}));
+        const result = await dispatch(StorePaymentAsync({payload: payload})).unwrap();
+
+        Cookies.set("order_id", result.order_id, {
+            expires: 365,
+            secure: true,
+            sameSite: "strict",
+        });
+        Cookies.set("payment_access", result.payment_access, {
+            expires: 365,
+            secure: true,
+            sameSite: "strict",
+        });
+        Cookies.set("payment_type", result.payment_type, {
+            expires: 365,
+            secure: true,
+            sameSite: "strict",
+        });
+        Cookies.set("payment_expire", result.payment_expire, {
+            expires: 365,
+            secure: true,
+            sameSite: "strict",
+        });
+
+        router.push("/success");
     }
 
     useEffect(() => {

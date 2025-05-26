@@ -17,6 +17,8 @@ export const StorePaymentAsync = createAsyncThunk('payment/store',
 
 interface PaymentState {
   payments: Payment[];
+  paymentResponse: PaymentResponse | null
+  loadingPayment: boolean;
   isLoading: boolean;
   selectedPayment: number;
   paymentCode: string;
@@ -25,7 +27,9 @@ interface PaymentState {
 
 const initialState: PaymentState = {
   payments: [],
+  paymentResponse: null,
   isLoading: false,
+  loadingPayment: false,
   selectedPayment: 0,
   paymentCode: "",
   error: null,
@@ -52,6 +56,17 @@ const paymentSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchPaymentListAsync.fulfilled, (state, action) => {
       state.payments = action.payload;
+    });
+    builder.addCase(StorePaymentAsync.pending, (state) => {
+      state.loadingPayment = true;
+    });
+    builder.addCase(StorePaymentAsync.fulfilled, (state, action) => {
+      state.loadingPayment = false; 
+      state.paymentResponse = action.payload;
+    });
+    builder.addCase(StorePaymentAsync.rejected, (state, action) => {
+      state.loadingPayment = false; 
+      state.error = action.error.message || "Failed to payment";;
     });
   },
 });

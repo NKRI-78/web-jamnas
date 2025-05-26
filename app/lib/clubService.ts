@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Swal from "sweetalert2";
 
 export const fetchClubList = async () => {
   try {
@@ -7,12 +6,6 @@ export const fetchClubList = async () => {
     const data = response.data.data;
     return data;
   } catch (e: any) {
-    Swal.fire({
-      icon: "info",
-      title: "Info",
-      text: e?.response?.data?.message || e.message,
-      timer: 2000,
-      showConfirmButton: false,
-    });
+    console.log(`Club List ${e?.response?.data?.message || e.message}`)
   }
 };
