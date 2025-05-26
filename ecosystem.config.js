@@ -1,12 +1,12 @@
 module.exports = {
   apps: [
     {
-      name: "nextjs-report-internal",
+      name: "web-jamnas-htci",
       script: "npm",
       args: "run start",
       env: {
         NODE_ENV: "production",
-        PORT: 5809,
+        PORT: 3335,
       },
     },
   ],
