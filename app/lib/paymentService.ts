@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 
 export const fetchPaymentList = async () => {
   try {
-    const response = await axios.get('http://localhost:3131/api/v1/payment/list');
+    const response = await axios.get('https://api-jamnas-htci.langitdigital78.com/api/v1/payment/list');
     const data = response.data.data;
     return data;
   } catch (e: any) {
@@ -13,7 +13,7 @@ export const fetchPaymentList = async () => {
 
 export const storePayment = async (payload: PaymentStore) => {
   try {
-    const response = await axios.post('http://localhost:3131/api/v1/payment/store', payload);
+    const response = await axios.post('https://api-jamnas-htci.langitidigital78.com/api/v1/payment/store', payload);
     const data = response.data.data
     return data;
   } catch (e: any) {
