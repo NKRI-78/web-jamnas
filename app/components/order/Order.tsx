@@ -180,27 +180,6 @@ const Order: React.FC = () => {
                   className="w-full text-black sm:w-2/3"
                   classNamePrefix="react-select"
                 />
-                {/* <select
-                  name="club"
-                  value={formData.club}
-                  onChange={handleChange}
-                  className={`w-full sm:w-2/3 bg-white p-2 appearance-none rounded ${
-                    formData.club === "" ? "text-gray-400" : "text-black"
-                  }`}
-                >
-                  <option value="" disabled hidden>Pilih Club</option>
-                  {Array.isArray(clubs) && clubs.length > 0 ? (
-                    clubs.map((club) => (
-                      <option key={club.no} value={club.club}>
-                        {club.club}
-                      </option>
-                    ))
-                  ) : (
-                    <option disabled value="">
-                      {isLoading ? "Loading clubs..." : "No clubs available"}
-                    </option>
-                  )}
-                </select> */}
               </div>
             </div>
 

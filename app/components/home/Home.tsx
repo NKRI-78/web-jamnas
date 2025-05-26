@@ -8,13 +8,13 @@ const Home: React.FC = () => {
     <div className="min-h-screen bg-[url('/images/bg-texture.png')] bg-cover bg-center flex flex-col items-center justify-center p-4">
       <div className="flex flex-col md:flex-row gap-4 w-full max-w-6xl">
 
-        <div className="flex-1 text-center md:text-left block md:hidden">
-          <img src="/images/jambore-logo.png" alt="Jambore Nasional 2025" className="mx-auto md:mx-0 w-80 mb-4" />
+        <div className="flex-1 text-center block md:hidden">
+          <img src="/images/jambore-logo.png" alt="Jambore Nasional 2025" className="mx-auto w-[380px] mb-4" />
           <div className="flex justify-center md:justify-start gap-4">
-            <img src="/images/motorbike.png" alt="Motorbike Prize" className="w-28" />
-            <img src="/images/car.png" alt="Car Prize" className="w-44" />
+            <img src="/images/motorbike.png" alt="Motorbike Prize" className="absolute w-36 left-[100px] bottom-[150px]" />
+            <img src="/images/car.png" alt="Car Prize" className="absolute w-36 left-[200px] bottom-[150px]" />
           </div>
-          <button className="mt-4 bg-red-600 text-white px-6 py-2 rounded font-bold">
+          <button className="mt-[80px] bg-red-600 text-white px-6 py-2 rounded font-bold">
             OUR DOOR PRIZE
           </button>
         </div>
@@ -23,23 +23,22 @@ const Home: React.FC = () => {
           <img
             src="/images/jambore-logo.png"
             alt="Jambore Nasional 2025"
-            className="md:mx-0 w-60 sm:w-72 md:w-80 mb-4"
+            className="w-[400px] mb-4"
           />
           <div className="flex flex-col sm:flex-row justify-center md:justify-start items-center gap-4">
-            <img src="/images/motorbike.png" alt="Motorbike Prize" className="absolute w-36 left-[40px] sm:w-28" />
-            <img src="/images/car.png" alt="Car Prize" className="absolute w-36 left-[120px] sm:w-44" />
+            <img src="/images/motorbike.png" alt="Motorbike Prize" className="absolute w-36 left-[80px]" />
+            <img src="/images/car.png" alt="Car Prize" className="absolute w-36 left-[180px]" />
           </div>
-          <button className="absolute left-[60px] bottom-[-75px] mt-4 bg-red-600 text-white px-6 py-2 rounded font-bold hover:bg-red-700 transition">
+          <button className="absolute left-[110px] bottom-[-35px] mt-4 bg-red-600 text-white px-6 py-2 rounded font-bold hover:bg-red-700 transition">
             OUR DOOR PRIZE
           </button>
         </div>
 
-        <div className="flex-1 text-center md:mt-0 mt-8">
+        <div className="flex-1 text-center md:pt-0 pt-[30px]">
           <h2 className="text-2xl font-bold text-black mb-4">OUR SPONSORSHIP</h2>
-          <div className="grid grid-cols-5 gap-3 justify-items-center">
-            {[...Array(20)].map((_, i) => (
-              <div key={i} className="w-16 h-16 bg-black/60 rounded-md" />
-            ))}
+
+          <div className="justify-items-center">
+            <img src="/images/our-sponsorship.png" alt="Car Prize" className=""/>
           </div>
           
           <div className="mt-10 text-center">
