@@ -10,7 +10,7 @@ const Home: React.FC = () => {
 
         <div className="flex-1 relative text-center block md:hidden">
           <img src="/images/jambore-logo.png" alt="Jambore Nasional 2025" className="mx-auto" />
-          <img src="/images/mobile-our-door-prize.png" alt="Jambore Nasional 2025" className="mx-auto absolute bottom-[-80px]" />
+          <img src="/images/mobile-our-door-prize.png" alt="Jambore Nasional 2025" className="mx-auto w-[280px] left-0 right-0 absolute bottom-[-80px]" />
         </div>
 
         <div className="flex-1 relative text-center md:block hidden">
