@@ -13,19 +13,13 @@ const Home: React.FC = () => {
           <img src="/images/mobile-our-door-prize.png" alt="Jambore Nasional 2025" className="mx-auto absolute bottom-[-80px]" />
         </div>
 
-        <div className="relative flex-1 text-center md:block hidden">
+        <div className="flex-1 relative text-center md:block hidden">
           <img
             src="/images/jambore-logo.png"
             alt="Jambore Nasional 2025"
-            className="w-[400px] mb-4"
+            className="w-[400px] mx-auto mb-4"
           />
-          <div className="flex flex-col sm:flex-row justify-center md:justify-start items-center gap-4">
-            <img src="/images/motorbike.png" alt="Motorbike Prize" className="absolute w-36 left-[80px]" />
-            <img src="/images/car.png" alt="Car Prize" className="absolute w-36 left-[180px]" />
-          </div>
-          <button className="absolute left-[110px] bottom-[-35px] mt-4 bg-red-600 text-white px-6 py-2 rounded font-bold hover:bg-red-700 transition">
-            OUR DOOR PRIZE
-          </button>
+          <img src="/images/mobile-our-door-prize.png" alt="Jambore Nasional 2025" className="mx-auto absolute w-[400px] bottom-[-60px] left-0 right-0" />
         </div>
 
         <div className="flex-1 text-center md:pt-0 pt-[80px]">
